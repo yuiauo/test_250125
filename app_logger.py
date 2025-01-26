@@ -1,9 +1,12 @@
 import logging
+import sys
 
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    filename='logs/logs.log',
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(levelname)s: %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout),
+        logging.FileHandler('logs/logs.log')],
 )
