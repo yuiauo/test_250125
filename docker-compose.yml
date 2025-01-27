@@ -1,0 +1,48 @@
+services:
+  code:
+    build:
+      context: .
+    container_name: code
+    entrypoint: >
+      sh -c
+        "
+          sleep 5
+          echo Testing with pytest...
+          coverage run -m pytest -v
+          coverage report -m
+          sleep 5
+          echo Stairway testing...
+          alembic upgrade head
+          alembic downgrade -2
+          sleep 5
+          echo Applying alembic migration...
+          alembic upgrade head
+          echo Starting uvicorn server...
+          uvicorn code.main:app --host 0.0.0.0 --port 8081
+          done
+        "
+    env_file:
+      - .env
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: rabbit
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5672:5672"
