@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "test-250125"
+version = "0.1.0"
+description = ""
+authors = ["Yuri Bakurov <yuri.bakurov@arsis.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.7"
+pydantic-settings = "^2.7.1"
+pyjwt = "^2.10.1"
+sqlalchemy = "^2.0.37"
+alembic = "^1.14.1"
+asyncpg = "^0.30.0"
+coverage = "^7.6.10"
+aioredis = "^2.0.1"
+uvicorn = "^0.34.0"
+setuptools = "^75.8.0"
+redis = "^5.2.1"
+pytest = "^8.3.4"
+pytest-asyncio = "^0.25.2"
+httpx = "^0.28.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+minversion = "8.3.3"
+addopts = "-ra -q"
+filterwarnings = "ignore::DeprecationWarning"
+pythonpath = [
+    "code"
+]
+testpaths = "tests"
